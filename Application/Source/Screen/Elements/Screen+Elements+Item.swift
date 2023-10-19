@@ -12,6 +12,7 @@ extension Screen.Elements {
         case camera
         case color
         case gradient
+        case hosting
         case image
         case input
         case markdown
@@ -23,6 +24,7 @@ extension Screen.Elements {
         case segmented
         case spinner
         case `switch`
+        case video
         case text
         case web
         
@@ -38,6 +40,7 @@ extension Screen.Elements.Item {
         case .camera: return "Camera"
         case .color: return "Color"
         case .gradient: return "Gradient"
+        case .hosting: return "Hosting"
         case .image: return "Image"
         case .input: return "Input"
         case .markdown: return "Markdown"
@@ -49,6 +52,7 @@ extension Screen.Elements.Item {
         case .segmented: return "Segmented"
         case .spinner: return "Spinner"
         case .switch: return "Switch"
+        case .video: return "Video"
         case .text: return "Text"
         case .web: return "Web"
         }

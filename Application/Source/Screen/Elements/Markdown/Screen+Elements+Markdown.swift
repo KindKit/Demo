@@ -34,6 +34,7 @@ extension Screen.Elements {
         
         lazy var view = UI.View.Scroll()
             .size(.fill, .fill)
+            .zoomLimit(0.5..<2.0)
             .color(.lightGray)
             .content(self.viewLayout)
         
@@ -87,15 +88,15 @@ extension Screen.Elements.Markdown {
         Line 2
         End quote
         
-        [1.] Start list
+        [*] Start list item 1
         Line 1
         Line 2
-        End list
+        End list item
         
-        [•] Start list
+        [] Start list item 2
         Line 1
         Line 2
-        End list
+        End list item
         
         Start paragraph
         Line 1

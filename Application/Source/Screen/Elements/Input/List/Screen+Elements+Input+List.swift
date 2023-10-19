@@ -85,7 +85,7 @@ extension Screen.Elements.Input {
 private extension Screen.Elements.Input.List {
     
     func _onSelect() {
-        if let selected = self.field.selected {
+        if let selected = self.field.value {
             print("Selected \(selected.id)")
         } else {
             print("Selected none")

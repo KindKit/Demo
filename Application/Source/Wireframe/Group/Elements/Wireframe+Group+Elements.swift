@@ -58,6 +58,14 @@ extension Wireframe.Group.Elements : IScreenElementsRouter {
                 animated: true,
                 completion: nil
             )
+        case .hosting:
+            self.container.push(
+                container: UI.Container.Screen(
+                    Screen.Elements.Hosting()
+                ),
+                animated: true,
+                completion: nil
+            )
         case .image: break
         case .input:
             self.container.push(
@@ -97,6 +105,14 @@ extension Wireframe.Group.Elements : IScreenElementsRouter {
         case .segmented: break
         case .spinner: break
         case .switch: break
+        case .video:
+            self.container.push(
+                container: UI.Container.Screen(
+                    Screen.Elements.Video()
+                ),
+                animated: true,
+                completion: nil
+            )
         case .text: break
         case .web: break
         }

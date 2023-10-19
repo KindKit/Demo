@@ -28,7 +28,6 @@ extension Screen {
         lazy var view = UI.View.Scroll()
             .width(.fill)
             .height(.fill)
-            .direction([ .vertical, .bounds ])
             .content(self.layout)
             .color(.lightGray)
         
@@ -36,7 +35,11 @@ extension Screen {
             .direction(.vertical)
             .views(
                 Item.allCases
-                    .map(self._cell)
+                    .map({
+                        self._cell($0, onDelete: {
+                            self._onPressedDelete($0)
+                        })
+                    })
                     .kk_processing(separator: self._separator)
             )
 
@@ -63,12 +66,24 @@ extension Screen.Elements {
         self.router.open(self, elements: item)
     }
     
+    func _onPressedDelete(_ cell: UI.View.SwipeCell) {
+        self.layout.animate(
+            duration: 0.1,
+            perform: {
+                guard let index = $0.index(view: cell) else {
+                    return
+                }
+                $0.delete(range: index ..< index + 2)
+            }
+        )
+    }
+    
 }
 
 extension Screen.Elements {
     
-    func _cell(_ item: Item) -> UI.View.Cell {
-        return .init()
+    func _cell(_ item: Item, onDelete: @escaping (UI.View.SwipeCell) -> Void) -> UI.View.SwipeCell {
+        let cell = UI.View.SwipeCell()
             .background(
                 UI.View.Color()
                     .color(.white)
@@ -84,7 +99,19 @@ extension Screen.Elements {
                         )
                     ))
             )
+            .trailingSize(120)
             .onPressed(self, { $0._onPressed(item) })
+        
+        let trailing = UI.View.Button()
+            .primary(
+                UI.View.Text()
+                    .text("Boom")
+                    .color(.white)
+            )
+            .onPressed({ onDelete(cell) })
+        
+        return cell
+            .trailing(trailing)
     }
     
     func _separator() -> UI.View.Rect {

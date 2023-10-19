@@ -3,12 +3,11 @@
 //
 
 import KindKit
+import SwiftUI
 
-#if os(iOS)
-
-extension Screen.Elements.Input {
+extension Screen.Elements {
     
-    class String : IScreen, IScreenStackable, IScreenViewable {
+    class Hosting : IScreen, IScreenStackable, IScreenViewable {
         
         unowned var container: IUIContainer?
         
@@ -46,34 +45,12 @@ extension Screen.Elements.Input {
                     alignment: .fill,
                     spacing: 8,
                     entities: [
-                        .view(self.field)
+                        .view(UI.View.Hosting(content: ContentView())),
+                        .view(UI.View.Hosting(content: ContentView()))
                     ]
                 )
             )
         )
-        
-        lazy var field = UI.View.Input.String()
-            .placeholder("Enter string")
-            .placeholderFont(.init(weight: .regular))
-            .placeholderColor(.darkGray)
-            .toolbar([
-                .flexible(),
-                .plain("Done").onPressed(self, { $0._onDone() })
-            ])
-            .suggestion(InputSuggestion.Condition(
-                condition: { $0.count <= 3 },
-                then: InputSuggestion.Static(
-                    items: [ "Adam", "Smith", "Lion" ],
-                    limit: 2
-                ),
-                else: InputSuggestion.Throttle(
-                    timer: .init(interval: .seconds(1)),
-                    suggestion: InputSuggestion.Static(
-                        items: [ "Leonardo", "Donatello", "Raphael", "Michelangelo" ],
-                        limit: 2
-                    )
-                )
-            ))
 
         init() {
         }
@@ -90,12 +67,31 @@ extension Screen.Elements.Input {
     
 }
 
-private extension Screen.Elements.Input.String {
+private extension Screen.Elements.Hosting {
     
-    func _onDone() {
-        self.field.endEditing()
+    struct ContentView : SwiftUI.View {
+        
+        @State var isExpanded = false
+            
+        var body: some View {
+            VStack {
+                Text("Headline")
+                if isExpanded {
+                    Text("More Info")
+                    Text("And more")
+                }
+            }
+            .padding()
+            .frame(maxWidth: .infinity)
+            .transition(.move(edge: .bottom))
+            .background(Color.gray.cornerRadius(10.0))
+            .onTapGesture {
+                withAnimation {
+                    isExpanded.toggle()
+                }
+            }
+        }
+        
     }
     
 }
-
-#endif

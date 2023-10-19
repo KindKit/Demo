@@ -34,7 +34,6 @@ extension Screen.Layouts {
         
         lazy var view = UI.View.Scroll()
             .size(.fill, .fill)
-            .direction([ .vertical, .bounds ])
             .color(.lightGray)
             .content(self.viewLayout)
         

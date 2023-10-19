@@ -28,7 +28,6 @@ extension Screen.Elements {
         lazy var view = UI.View.Scroll()
             .width(.fill)
             .height(.fill)
-            .direction([ .vertical, .bounds ])
             .content(self.layout)
             .color(.lightGray)
         
